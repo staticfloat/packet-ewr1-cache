@@ -1,0 +1,20 @@
+version: '3'
+services:
+    frontend:
+        restart: unless-stopped
+        build: frontend
+        ports:
+            - 80:80/tcp
+            - 443:443/tcp
+        environment:
+            - CERTBOT_EMAIL=staticfloat@gmail.com
+        depends_on:
+            - cache
+
+    cache:
+        restart: unless-stopped
+        build: cache
+        volumes:
+            - /cache
+        expose:
+            - 8080/tcp
